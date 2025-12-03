@@ -14,16 +14,6 @@ public class NBackOfficeService {
     @Autowired
     NBackOfficeRepository repository;
 
-
-    public NEntity save(NEntity n) {
-        return repository.save(n);
-    }
-
-    public Optional<NEntity> findById(Long id) {
-        return repository.findById(id);
-    }
-
-
     public List<NEntity> findByStatuses(List<String> statuses) {
         return repository.findByStatusInOrderByCreatedDesc(statuses);
     }

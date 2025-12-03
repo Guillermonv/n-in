@@ -9,36 +9,21 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Service
-public class UnsplashClient {
+public class UnsplashClient extends BaseHttpClient {
 
     private static final String URL =
-            "https://api.unsplash.com/search/photos?page=1&query=clown&client_id=3raBUTruWk_fZV9GzBh9qgjk3xlzS-RJWE-e8IYeZZQ&lang=es";
+            "https://api.unsplash.com/search/photos?page=1&query=%s&client_id=&lang=es";
 
-    private final HttpClient httpClient;
-    private final ObjectMapper objectMapper;
+    public UnsplashSearchResponse searchPhotos(String query) {
 
-    public UnsplashClient() {
-        this.httpClient = HttpClient.newHttpClient();
-        this.objectMapper = new ObjectMapper();
-    }
-
-    public UnsplashSearchResponse searchPhotos(String query) throws Exception {
-
-        String finalUrl = String.format(URL, query);
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(finalUrl))
-                .GET()
+        RequestStrategy strategy = (q) -> HttpRequest.newBuilder()
+                .uri(URI.create(String.format(URL, q)))
                 .header("Accept", "application/json")
+                .GET()
                 .build();
 
-        HttpResponse<String> response =
-                httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+        HttpRequest request = strategy.build(query);
 
-        if (response.statusCode() != 200) {
-            throw new RuntimeException("Unsplash error: " + response.statusCode());
-        }
-
-        return objectMapper.readValue(response.body(), UnsplashSearchResponse.class);
+        return sendRequest(request, UnsplashSearchResponse.class);
     }
 }

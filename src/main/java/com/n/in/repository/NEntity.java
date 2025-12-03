@@ -1,6 +1,8 @@
 package com.n.in.repository;
 
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
@@ -14,6 +16,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
+
 public class NEntity {
 
     @Id
@@ -22,9 +26,6 @@ public class NEntity {
 
     @Column(length = 100)
     private String title;
-
-    @Column(length = 100)
-    private String name;
 
     @Column(length = 20)
     private String status;
@@ -39,10 +40,13 @@ public class NEntity {
     private String subType;
 
     @Column(length = 20)
-    private String categoria;
+    private String category;
 
     @Column(name = "sub_category", length = 20)
     private String subCategory;
+
+    @Column(name = "image_prompt", length = 250)
+    private String imagePrompt;
 
     private String imageUrl;
 
