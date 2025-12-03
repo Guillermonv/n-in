@@ -1,7 +1,6 @@
 package com.n.in.utils;
 
-import com.n.in.dto.NDto;
-import org.apache.logging.log4j.util.Strings;
+import com.n.in.model.NDto;
 
 public class NParser {
 

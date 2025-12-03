@@ -1,6 +1,6 @@
 package com.n.in.controller;
 
-import com.n.in.repository.NEntity;
+import com.n.in.model.NEntity;
 import com.n.in.service.NBackOfficeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

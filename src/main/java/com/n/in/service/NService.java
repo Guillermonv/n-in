@@ -1,14 +1,14 @@
 package com.n.in.service;
 
-import com.n.in.client.GroqClient;
-import com.n.in.client.UnsplashClient;
-import com.n.in.dto.NDto;
-import com.n.in.dto.groq.GroqRequest;
-import com.n.in.dto.groq.GroqResponse;
-import com.n.in.dto.groq.MessageDto;
-import com.n.in.dto.unplash.UnsplashSearchResponse;
+import com.n.in.provider.groq.client.GroqClient;
+import com.n.in.provider.unplash.client.UnsplashClient;
+import com.n.in.model.NDto;
+import com.n.in.provider.groq.request.GroqRequest;
+import com.n.in.provider.groq.reponse.GroqResponse;
+import com.n.in.provider.groq.reponse.MessageDto;
+import com.n.in.provider.unplash.response.UnsplashSearchResponse;
 import com.n.in.mapper.NMapper;
-import com.n.in.repository.NEntity;
+import com.n.in.model.NEntity;
 import com.n.in.repository.NRepository;
 import com.n.in.tasks.NStatusTask;
 import com.n.in.utils.ImageDownloader;
