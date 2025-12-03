@@ -1,9 +1,8 @@
 package com.n.in.mapper;
 
 
-import com.n.in.dto.NDto;
-import com.n.in.dto.unplash.UnsplashSearchResponse;
-import com.n.in.repository.NEntity;
+import com.n.in.model.NDto;
+import com.n.in.model.NEntity;
 import org.springframework.stereotype.Component;
 
 @Component

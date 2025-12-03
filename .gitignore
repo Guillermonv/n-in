@@ -1,0 +1,46 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VSCode (por si acaso)
+.vscode/
+
+# Build
+target/
+build/
+out/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temp / Cache
+temp/
+.tmp/
+.cache/
+**/tmp/
+**/temp/
+
+# Maven
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Node (si tu proyecto tiene algo de frontend)
+node_modules/
+dist/
