@@ -2,16 +2,16 @@ package com.n.in.provider.unplash.client;
 
 import com.n.in.provider.unplash.response.UnsplashSearchResponse;
 import com.n.in.provider.unplash.config.UnsplashProperties;
-import com.n.in.provider.client.SimpleRestClient;
+import com.n.in.provider.client.RestClientTemplate;
 import org.springframework.stereotype.Service;
 import java.net.URI;
 import java.net.http.HttpRequest;
 @Service
-public class UnsplashClient extends SimpleRestClient {
+public class UnsplashClientClient extends RestClientTemplate {
 
     private final UnsplashProperties props;
 
-    public UnsplashClient(UnsplashProperties props) {
+    public UnsplashClientClient(UnsplashProperties props) {
         this.props = props;
     }
 

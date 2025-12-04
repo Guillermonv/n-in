@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-public abstract class SimpleRestClient {
+public abstract class RestClientTemplate {
 
     protected final HttpClient httpClient = HttpClient.newHttpClient();
     protected final ObjectMapper mapper = new ObjectMapper();
