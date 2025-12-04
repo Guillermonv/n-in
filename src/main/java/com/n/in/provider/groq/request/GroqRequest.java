@@ -1,7 +1,7 @@
 package com.n.in.provider.groq.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.n.in.provider.groq.reponse.MessageDto;
+import com.n.in.provider.groq.reponse.Message;
 import lombok.Data;
 
 import java.util.List;
@@ -11,5 +11,5 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GroqRequest {
     private String model;
-    private List<MessageDto> messages;
+    private List<Message> messages;
 }

@@ -20,13 +20,20 @@ public class NStatusTask {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-   @Scheduled(fixedRate = 1000)
+  // @Scheduled(fixedRate = 1000)
     public void createNs() throws Exception {
         nService.createN();
         log.info("N Created at {}", dateFormat.format(System.currentTimeMillis()));
     }
 
-   @Scheduled(fixedRate = 1500)
+    @Scheduled(fixedRate = 1000)
+    public void createNsv2() throws Exception {
+        nService.createNv2();
+        log.info("N Created at {}", dateFormat.format(System.currentTimeMillis()));
+    }
+
+
+ //   @Scheduled(fixedRate = 1500)
     public void updateInitiatedNs() {
         nService.processInitiatedNs();
     }

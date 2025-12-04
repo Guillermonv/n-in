@@ -22,3 +22,13 @@ clients:
     base-url: "https://api.groq.com/openai/v1"
     completions-path: "/chat/completions"
     token: "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"
+
+  openrouter:
+    base-url: "https://openrouter.ai/openai/v1"
+    completions-path: "/chat/completions"
+    token: "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"
+
+  gemini:
+    base-url: "https://generativelanguage.googleapis.com/v1beta"
+    completions-path: "/models/gemini-2.5-flash:generateContent"
+    token: "AIzaSyA98pzm_USE8EECIgp4KHe25fXtu4Lu2ZI"

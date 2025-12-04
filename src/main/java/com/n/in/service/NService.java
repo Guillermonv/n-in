@@ -1,11 +1,18 @@
 package com.n.in.service;
 
+import com.n.in.provider.gemini.client.GeminiClient;
+import com.n.in.provider.gemini.request.Content;
+import com.n.in.provider.gemini.request.GeminiRequest;
+import com.n.in.provider.gemini.request.Part;
+import com.n.in.provider.gemini.response.GeminiResponse;
 import com.n.in.provider.groq.client.GroqClient;
-import com.n.in.provider.unplash.client.UnsplashClient;
+import com.n.in.provider.openrouter.client.OpenRouterClient;
+import com.n.in.provider.openrouter.reponse.OpenRouterResponse;
+import com.n.in.provider.unplash.client.UnsplashClientClient;
 import com.n.in.model.NDto;
 import com.n.in.provider.groq.request.GroqRequest;
 import com.n.in.provider.groq.reponse.GroqResponse;
-import com.n.in.provider.groq.reponse.MessageDto;
+import com.n.in.provider.groq.reponse.Message;
 import com.n.in.provider.unplash.response.UnsplashSearchResponse;
 import com.n.in.mapper.NMapper;
 import com.n.in.model.NEntity;
@@ -29,17 +36,22 @@ public class NService {
     NRepository repository;
 
     @Autowired
-    UnsplashClient unsplashClient;
+    UnsplashClientClient unsplashClient;
 
     @Autowired
     GroqClient groqClient;
 
+    @Autowired
+    OpenRouterClient openRouterClient;
+
+    @Autowired
+    GeminiClient geminiClient;
     private static final Logger log = LoggerFactory.getLogger(NStatusTask.class);
 
     public void createN() throws Exception {
         GroqRequest groqRequest = new GroqRequest();
         groqRequest.setModel("llama-3.3-70b-versatile");
-        MessageDto message = new MessageDto();
+        Message message = new Message();
         message.setRole("user");
         message.setContent("Genera un dato real, verificable y poco conocido sobre Argentina, el cuerpo humano o un deporte. Debe ser sorprendente pero 100% verdadero y respaldado por instituciones oficiales, estudios científicos o registros verificables. Devuélvelo EXACTAMENTE en este formato, con cada campo en una única línea y con un salto de línea entre ellos: Título: [título breve] Mensaje: [texto periodístico de 13 a 15 líneas en un solo bloque, sin saltos de línea internos, sin opinión, citando fuentes oficiales] Prompt-imagen: [máximo 20 palabras, breve, solo basado en el hecho] IMPORTANTE: - No agregues texto antes ni después. - No agregues saltos de línea dentro del mensaje. - No agregues explicaciones. - Mantén la estructura EXACTA: “Título: …”, “Mensaje: …”, “Prompt-imagen: …”");
         groqRequest.setMessages(Arrays.asList(message));
@@ -95,4 +107,22 @@ public class NService {
         return repository.findByStatusAndImageUrlIsNull(status);
     }
 
+    public void createNv2() {
+        GeminiRequest geminiRequest = new GeminiRequest();
+        Content content = new Content();
+        Part part = new Part();
+        part.setText("dame algo lindo");
+        content.setParts(Arrays.asList(part));
+        geminiRequest.setContents(Arrays.asList(content));
+
+        GeminiResponse response = geminiClient.sendPrompt(geminiRequest);
+        NDto ndto = NDto.builder().type("IA").subType("GEMINI")
+                .status("initiated").description(response.getCandidates().get(0).getContent().getParts().get(0).getText()).
+                created(LocalDateTime.now()).build();
+     //   NParser.parse(response.getChoices().get(0).getMessage().getContent(), ndto);
+        NMapper mapper = new NMapper();
+
+
+        save(mapper.toEntity(ndto));
+    }
 }

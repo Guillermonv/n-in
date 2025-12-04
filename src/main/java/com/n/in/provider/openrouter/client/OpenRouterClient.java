@@ -1,19 +1,20 @@
-package com.n.in.provider.groq.client;
+package com.n.in.provider.openrouter.client;
 
+import com.n.in.provider.client.RestClientTemplate;
 import com.n.in.provider.groq.config.GroqProperties;
 import com.n.in.provider.groq.request.GroqRequest;
-import com.n.in.provider.groq.reponse.GroqResponse;
-import com.n.in.provider.client.RestClientTemplate;
+import com.n.in.provider.openrouter.reponse.OpenRouterResponse;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
 import java.net.http.HttpRequest;
+
 @Service
-public class GroqClient extends RestClientTemplate {
+public class OpenRouterClient extends RestClientTemplate {
 
     private final GroqProperties props;
 
-    public GroqClient(GroqProperties props) {
+    public OpenRouterClient(GroqProperties props) {
         this.props = props;
     }
 
@@ -32,11 +33,11 @@ public class GroqClient extends RestClientTemplate {
     }
 
     @Override
-    protected Class<GroqResponse> responseType() {
-        return GroqResponse.class;
+    protected Class<OpenRouterResponse> responseType() {
+        return OpenRouterResponse.class;
     }
 
-    public GroqResponse sendPrompt(GroqRequest request) {
+    public OpenRouterResponse sendPrompt(GroqRequest request) {
         return execute(request);
     }
 }
