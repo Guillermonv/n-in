@@ -33,4 +33,13 @@ public abstract class RestClientTemplate {
             throw new RuntimeException("HTTP request failed: " + e.getMessage(), e);
         }
     }
+
+
+    public <T> T executeWithFallback(Object input, java.util.function.Supplier<T> fallback) {
+        try {
+            return execute(input);
+        } catch (Exception e) {
+            return fallback.get();
+        }
+    }
 }

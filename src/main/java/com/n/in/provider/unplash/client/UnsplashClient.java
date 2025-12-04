@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import java.net.URI;
 import java.net.http.HttpRequest;
 @Service
-public class UnsplashClientClient extends RestClientTemplate {
+public class UnsplashClient extends RestClientTemplate {
 
     private final UnsplashProperties props;
 
-    public UnsplashClientClient(UnsplashProperties props) {
+    public UnsplashClient(UnsplashProperties props) {
         this.props = props;
     }
 
