@@ -1,6 +1,6 @@
 package com.n.in.service;
 
-import com.n.in.repository.NBackOfficeRepository;
+import com.n.in.model.repository.NBackOfficeRepository;
 import com.n.in.model.NEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

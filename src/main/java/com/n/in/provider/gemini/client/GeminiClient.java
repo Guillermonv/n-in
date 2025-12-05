@@ -3,9 +3,6 @@ package com.n.in.provider.gemini.client;
 import com.n.in.provider.gemini.config.GeminiProperties;
 import com.n.in.provider.gemini.request.GeminiRequest;
 import com.n.in.provider.gemini.response.GeminiResponse;
-import com.n.in.provider.groq.config.GroqProperties;
-import com.n.in.provider.groq.request.GroqRequest;
-import com.n.in.provider.groq.reponse.GroqResponse;
 import com.n.in.provider.client.RestClientTemplate;
 import org.springframework.stereotype.Service;
 

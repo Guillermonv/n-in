@@ -2,7 +2,7 @@ package com.n.in.scheduler;
 
 import com.n.in.provider.unplash.client.UnsplashClient;
 import com.n.in.provider.unplash.response.UnsplashSearchResponse;
-import com.n.in.repository.NRepository;
+import com.n.in.model.repository.NRepository;
 import com.n.in.service.NService;
 import com.n.in.utils.ImageDownloader;
 import org.slf4j.Logger;

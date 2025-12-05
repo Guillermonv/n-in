@@ -31,4 +31,4 @@ clients:
   gemini:
     base-url: "https://generativelanguage.googleapis.com/v1beta"
     completions-path: "/models/gemini-2.5-flash:generateContent"
-    token: "AIzaSyA98pzm_USE8EECIgp4KHe25fXtu4Lu2ZI"
+    token: "AIzaSyBND9gT9GrPJvQCCzWDqN0hQxcf2GaU4Dk"
