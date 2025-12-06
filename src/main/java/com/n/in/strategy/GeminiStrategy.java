@@ -52,7 +52,7 @@ public class GeminiStrategy implements IAClientStrategy {
         c.setParts(List.of(p));
         req.setContents(List.of(c));
 
-        var res = geminiClient.sendPrompt(req);
+        var res = geminiClient.sendPrompt(req,agent.get().getSecret());
         System.out.println(res);
         return NDto.builder()
                 .type("IA")

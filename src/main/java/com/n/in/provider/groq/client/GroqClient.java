@@ -18,7 +18,7 @@ public class GroqClient extends RestClientTemplate {
     }
 
     @Override
-    protected HttpRequest buildRequest(Object input) throws Exception {
+    protected HttpRequest buildRequest(Object input, String secret) throws Exception {
         GroqRequest body = (GroqRequest) input;
 
         String url = props.getBaseUrl() + props.getCompletionsPath();
@@ -26,7 +26,7 @@ public class GroqClient extends RestClientTemplate {
         return HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
-                .header("Authorization", "Bearer " + props.getToken())
+                .header("Authorization", "Bearer " + secret)
                 .POST(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(body)))
                 .build();
     }
@@ -36,7 +36,7 @@ public class GroqClient extends RestClientTemplate {
         return GroqResponse.class;
     }
 
-    public GroqResponse sendPrompt(GroqRequest request) {
-        return execute(request);
+    public GroqResponse sendPrompt(GroqRequest request, String secret) {
+        return execute(request, secret);
     }
 }
