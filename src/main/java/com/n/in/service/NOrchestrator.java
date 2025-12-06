@@ -1,9 +1,9 @@
 package com.n.in.service;
 
-import com.n.in.mapper.NMapper;
+import com.n.in.model.mapper.NMapper;
 import com.n.in.model.NDto;
 import com.n.in.model.NEntity;
-import com.n.in.repository.NRepository;
+import com.n.in.model.repository.NRepository;
 import com.n.in.strategy.IAClientFactory;
 import com.n.in.strategy.IAClientStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,6 @@ public class NOrchestrator {
     private  NRepository repository;
     @Autowired
     private  NMapper mapper;
-
 
     public NEntity generateFrom(String provider) {
         IAClientStrategy strategy = factory.get(provider);

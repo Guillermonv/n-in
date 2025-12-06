@@ -10,13 +10,13 @@ public abstract class RestClientTemplate {
     protected final HttpClient httpClient = HttpClient.newHttpClient();
     protected final ObjectMapper mapper = new ObjectMapper();
 
-    protected abstract HttpRequest buildRequest(Object input) throws Exception;
+    protected abstract HttpRequest buildRequest(Object input,String secret) throws Exception;
 
     protected abstract <T> Class<T> responseType();
 
-    public <T> T execute(Object input) {
+    public <T> T execute(Object input, String secret) {
         try {
-            HttpRequest request = buildRequest(input);
+            HttpRequest request = buildRequest(input,secret);
 
             HttpResponse<String> response =
                     httpClient.send(request, HttpResponse.BodyHandlers.ofString());
@@ -35,9 +35,9 @@ public abstract class RestClientTemplate {
     }
 
 
-    public <T> T executeWithFallback(Object input, java.util.function.Supplier<T> fallback) {
+    public <T> T executeWithFallback(Object input, java.util.function.Supplier<T> fallback,String secret) {
         try {
-            return execute(input);
+            return execute(input,secret);
         } catch (Exception e) {
             return fallback.get();
         }

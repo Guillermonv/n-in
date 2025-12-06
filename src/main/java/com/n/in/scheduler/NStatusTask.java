@@ -2,7 +2,7 @@ package com.n.in.scheduler;
 
 import com.n.in.provider.unplash.client.UnsplashClient;
 import com.n.in.provider.unplash.response.UnsplashSearchResponse;
-import com.n.in.repository.NRepository;
+import com.n.in.model.repository.NRepository;
 import com.n.in.service.NService;
 import com.n.in.utils.ImageDownloader;
 import org.slf4j.Logger;
@@ -31,19 +31,19 @@ public class NStatusTask {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
-   @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 1000)
     public void createNs() throws Exception {
         nService.createWithGemini();
         log.info("N Created at {}", dateFormat.format(System.currentTimeMillis()));
     }
 
-  //  @Scheduled(fixedRate = 1000)
+    //  @Scheduled(fixedRate = 1000)
     public void createNsv2() throws Exception {
         nService.createWithGroq();
         log.info("N Created at {}", dateFormat.format(System.currentTimeMillis()));
     }
-
-
+}
+/*
  //@Scheduled(fixedRate = 1500)
  public void processInitiatedNs() {
 
@@ -78,4 +78,4 @@ public class NStatusTask {
              });
 
  }
-}
+}*/

@@ -1,4 +1,4 @@
-package com.n.in.repository;
+package com.n.in.model.repository;
 
 
 import com.n.in.model.NEntity;

@@ -3,9 +3,6 @@ package com.n.in.provider.gemini.client;
 import com.n.in.provider.gemini.config.GeminiProperties;
 import com.n.in.provider.gemini.request.GeminiRequest;
 import com.n.in.provider.gemini.response.GeminiResponse;
-import com.n.in.provider.groq.config.GroqProperties;
-import com.n.in.provider.groq.request.GroqRequest;
-import com.n.in.provider.groq.reponse.GroqResponse;
 import com.n.in.provider.client.RestClientTemplate;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +18,7 @@ public class GeminiClient extends RestClientTemplate {
     }
 
     @Override
-    protected HttpRequest buildRequest(Object input) throws Exception {
+    protected HttpRequest buildRequest(Object input, String secret) throws Exception {
         GeminiRequest body = (GeminiRequest) input;
 
         String url = props.getBaseUrl() + props.getCompletionsPath();
@@ -29,7 +26,7 @@ public class GeminiClient extends RestClientTemplate {
         return HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .header("Content-Type", "application/json")
-                .header("x-goog-api-key", props.getToken())
+                .header("x-goog-api-key", secret)
                 .POST(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(body)))
                 .build();
     }
@@ -39,7 +36,7 @@ public class GeminiClient extends RestClientTemplate {
         return GeminiResponse.class;
     }
 
-    public GeminiResponse sendPrompt(GeminiRequest request) {
-        return execute(request);
+    public GeminiResponse sendPrompt(GeminiRequest request, String secret) {
+        return execute(request,secret);
     }
 }

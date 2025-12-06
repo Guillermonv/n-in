@@ -1,5 +1,6 @@
 package com.n.in.service;
 
+import com.n.in.utils.enums.ProviderEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 @Service
@@ -10,11 +11,11 @@ public class NService {
 
 
     public void createWithGroq() {
-        orchestrator.generateFrom("GROQ");
+        orchestrator.generateFrom(ProviderEnum.GROQ.getName());
     }
 
     public void createWithGemini() {
-        orchestrator.generateFrom("GEMINI");
+        orchestrator.generateFrom(ProviderEnum.GEMINI.getName());
     }
 /*
     public void createWithOpenRouter() {

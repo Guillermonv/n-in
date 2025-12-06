@@ -16,7 +16,7 @@ public class UnsplashClient extends RestClientTemplate {
     }
 
     @Override
-    protected HttpRequest buildRequest(Object input) {
+    protected HttpRequest buildRequest(Object input, String secret) {
         String query = input.toString();
 
         String url = String.format(
@@ -24,7 +24,7 @@ public class UnsplashClient extends RestClientTemplate {
                 props.getBaseUrl(),
                 props.getSearchPath(),
                 query,
-                props.getClientId(),
+                secret,
                 props.getLang()
         );
 
@@ -40,7 +40,7 @@ public class UnsplashClient extends RestClientTemplate {
         return UnsplashSearchResponse.class;
     }
 
-    public UnsplashSearchResponse searchPhotos(String query) {
-        return execute(query);
+    public UnsplashSearchResponse searchPhotos(String query, String secret) {
+        return execute(query, secret);
     }
 }

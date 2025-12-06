@@ -1,4 +1,4 @@
-package com.n.in.mapper;
+package com.n.in.model.mapper;
 
 
 import com.n.in.model.NDto;
