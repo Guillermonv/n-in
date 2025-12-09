@@ -24,14 +24,17 @@ public class NEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 100)
+    @Column(columnDefinition = "TEXT")
     private String title;
+
+    @Column(columnDefinition = "TEXT")
+    private String shortDescription;
+
+    @Column(columnDefinition = "TEXT")
+    private String message;
 
     @Column(length = 20)
     private String status;
-
-    @Column(columnDefinition = "TEXT")
-    private String description;
 
     @Column(length = 20)
     private String type;
@@ -45,7 +48,7 @@ public class NEntity {
     @Column(name = "sub_category", length = 20)
     private String subCategory;
 
-    @Column(name = "image_prompt", length = 250)
+    @Column(columnDefinition = "TEXT")
     private String imagePrompt;
 
     private String imageUrl;

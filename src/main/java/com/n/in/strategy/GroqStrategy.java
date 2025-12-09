@@ -42,7 +42,6 @@ public class GroqStrategy implements IAClientStrategy {
                 .type("IA")
                 .subType("GROQ")
                 .status("initiated")
-                .description(res.getChoices().get(0).getMessage().getContent())
                 .lastUpdated(LocalDateTime.now())
                 .created(LocalDateTime.now())
                 .build();
