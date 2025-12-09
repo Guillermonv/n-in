@@ -8,7 +8,9 @@ import com.n.in.provider.gemini.client.GeminiClient;
 import com.n.in.provider.gemini.request.Content;
 import com.n.in.provider.gemini.request.GeminiRequest;
 import com.n.in.provider.gemini.request.Part;
+import com.n.in.utils.NParser;
 import com.n.in.utils.enums.ProviderEnum;
+import org.hibernate.grammars.hql.HqlParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,16 +53,16 @@ public class GeminiStrategy implements IAClientStrategy {
         }
         c.setParts(List.of(p));
         req.setContents(List.of(c));
-
         var res = geminiClient.sendPrompt(req,agent.get().getSecret());
         System.out.println(res);
-        return NDto.builder()
+        NDto nDto = NDto.builder()
                 .type("IA")
                 .subType(ProviderEnum.GEMINI.getName())
                 .status("initiated")
-                .description(res.getCandidates().get(0).getContent().getParts().get(0).getText())
                 .lastUpdated(LocalDateTime.now())
                 .created(LocalDateTime.now())
                 .build();
+        NParser.parse(res.getCandidates().get(0).getContent().getParts().get(0).getText(),nDto);
+        return nDto;
     }
 }

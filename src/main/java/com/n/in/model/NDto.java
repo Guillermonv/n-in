@@ -15,12 +15,12 @@ public class NDto {
 
     private Long id;
     private String title;
-    private String name;
+    private String shortDescription;
+    private String message;
     private String status;
-    private String description;
     private String type;
     private String subType;
-    private String categoria;
+    private String category;
     private String subCategory;
 
     private String imagePrompt;
