@@ -1,15 +1,15 @@
 package com.n.in.strategy;
 
 
-import com.n.in.model.AgentEntity;
-import com.n.in.model.NDto;
+import com.n.in.model.Agent;
+import com.n.in.model.dto.NDto;
+import com.n.in.model.Step;
 import com.n.in.model.repository.AgentRepository;
 import com.n.in.provider.groq.client.GroqClient;
 import com.n.in.provider.groq.reponse.Message;
 import com.n.in.provider.groq.request.GroqRequest;
 import com.n.in.utils.enums.ProviderEnum;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -26,7 +26,7 @@ public class GroqStrategy implements IAClientStrategy {
     private AgentRepository agentRepository;
 
     @Override
-    public NDto generate() {
+    public NDto generate(Step step) {
         GroqRequest req = new GroqRequest();
         req.setModel("llama-3.3-70b-versatile");
 
@@ -34,7 +34,7 @@ public class GroqStrategy implements IAClientStrategy {
         msg.setRole("user");
         msg.setContent("Genera un dato real verificable...");
         req.setMessages(List.of(msg));
-        Optional<AgentEntity> agent = agentRepository.findById(Long.valueOf(ProviderEnum.GEMINI.getId()));
+        Optional<Agent> agent = agentRepository.findById(Long.valueOf(ProviderEnum.GEMINI.getId()));
 
         var res = groqClient.sendPrompt(req,agent.get().getSecret());
 

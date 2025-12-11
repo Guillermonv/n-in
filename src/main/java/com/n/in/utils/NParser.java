@@ -1,6 +1,6 @@
 package com.n.in.utils;
 
-import com.n.in.model.NDto;
+import com.n.in.model.dto.NDto;
 
 public class NParser {
 

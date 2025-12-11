@@ -1,5 +1,6 @@
 package com.n.in.strategy;
 
+import com.n.in.model.Agent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,15 +11,14 @@ public class IAClientFactory {
     private GroqStrategy groqStrategy;
 
     @Autowired
-    private  GeminiStrategy geminiStrategy;
+    private GeminiStrategy geminiStrategy;
 
+    public IAClientStrategy getStrategy(Agent agent) {
 
-    public IAClientStrategy get(String provider) {
-        return switch (provider.toUpperCase()) {
-            case "GROQ" -> groqStrategy;
+        return switch (agent.getProvider().toUpperCase()) {
             case "GEMINI" -> geminiStrategy;
-        //    case "OPENROUTER" -> openRouterStrategy;
-            default -> throw new IllegalArgumentException("Unknown provider: " + provider);
+            case "GROQ" -> groqStrategy;
+            default -> throw new IllegalArgumentException("Unknown provider " + agent.getProvider());
         };
     }
 }

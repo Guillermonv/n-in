@@ -34,12 +34,4 @@ public abstract class RestClientTemplate {
         }
     }
 
-
-    public <T> T executeWithFallback(Object input, java.util.function.Supplier<T> fallback,String secret) {
-        try {
-            return execute(input,secret);
-        } catch (Exception e) {
-            return fallback.get();
-        }
-    }
 }
