@@ -1,7 +1,7 @@
 package com.n.in.strategy;
 
-import com.n.in.model.NDto;
+import com.n.in.model.Step;
 
 public interface IAClientStrategy {
-    NDto generate();
+    Object generate(Step step);
 }

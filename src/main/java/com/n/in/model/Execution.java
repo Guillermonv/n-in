@@ -1,0 +1,34 @@
+package com.n.in.model;
+
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Entity
+@Table(name = "executions")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Execution {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    // CORRECCIÓN 2: Se debe añadir @ManyToOne para mapear la entidad Workflow.
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "workflow_id") // Coincide con tu DDL SQL
+    private Workflow workflow;
+
+    private String status; // Ej: RUNNING, COMPLETED
+
+    // Esta parte ya estaba bien, pero depende de la corrección en StepExecution:
+    @OneToMany(mappedBy = "executions", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<StepExecution> stepExecutions;
+
+    // getters y setters
+}

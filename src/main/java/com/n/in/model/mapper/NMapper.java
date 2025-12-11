@@ -1,7 +1,7 @@
 package com.n.in.model.mapper;
 
 
-import com.n.in.model.NDto;
+import com.n.in.model.dto.NDto;
 import com.n.in.model.NEntity;
 import org.springframework.stereotype.Component;
 
