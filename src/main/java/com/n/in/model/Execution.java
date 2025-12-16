@@ -19,16 +19,13 @@ public class Execution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // CORRECCIÓN 2: Se debe añadir @ManyToOne para mapear la entidad Workflow.
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "workflow_id") // Coincide con tu DDL SQL
+    @JoinColumn(name = "workflow_id")
     private Workflow workflow;
 
     private String status; // Ej: RUNNING, COMPLETED
 
-    // Esta parte ya estaba bien, pero depende de la corrección en StepExecution:
-    @OneToMany(mappedBy = "executions", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "execution", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<StepExecution> stepExecutions;
 
-    // getters y setters
 }

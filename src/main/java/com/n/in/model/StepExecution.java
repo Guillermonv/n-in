@@ -16,16 +16,15 @@ public class StepExecution {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // CORRECCIÓN 1: Se debe añadir @ManyToOne para mapear la entidad Step.
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "step_id") // Coincide con tu DDL SQL
+    @JoinColumn(name = "step_id")
     private Step step;
 
     private String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "execution_id") // Corregido el nombre de la columna para que coincida con tu DDL SQL
-    private Execution executions;
+    @JoinColumn(name = "execution_id")
+    private Execution execution;
 
     @Column(columnDefinition = "LONGTEXT")
     private String output;

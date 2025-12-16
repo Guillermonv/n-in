@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class NDto {
 
     private Long id;
+    private Long executionId;
     private String title;
     private String shortDescription;
     private String message;
