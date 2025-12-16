@@ -30,6 +30,7 @@ public class NMapper {
         if (d == null) return null;
         return NEntity.builder()
                 .id(d.getId())
+                .executionId(d.getExecutionId())
                 .status(d.getStatus())
                 .title(d.getTitle())
                 .shortDescription(d.getShortDescription())

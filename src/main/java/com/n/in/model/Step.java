@@ -25,12 +25,11 @@ public class Step {
     @Column(columnDefinition = "MEDIUMTEXT")
     private String prompt;
 
-    // 1. CORRECCIÓN de JoinColumn: Usa 'workflow_id' para coincidir con tu SQL.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "workflow_id")
     private Workflow workflows;
 
-    @ManyToOne(fetch = FetchType.EAGER) // <--- Cambio a EAGER
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "agent_id")
     private Agent agent;
 }
