@@ -27,5 +27,4 @@ public class Agent {
     @Column(length = 200)
     private String secret;
 
-
 }

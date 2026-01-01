@@ -11,9 +11,11 @@ import com.n.in.model.repository.WorkflowRepository;
 import com.n.in.provider.gemini.response.GeminiResponse;
 import com.n.in.strategy.IAClientFactory;
 import com.n.in.strategy.IAClientStrategy;
-import jakarta.transaction.Transactional;
+import com.n.in.utils.enums.ProviderEnum;
+import com.n.in.utils.enums.StatusEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Comparator;
 
@@ -53,49 +55,47 @@ public class WorkflowExecutionService {
             stepExec = stepExecutionRepository.save(stepExec);
 
             try {
-                // PASAR EL OUTPUT PREVIO AL STEP
                 String output = runStep(stepExec.getExecution().getId(),step, previousOutput);
-
                 stepExec.setOutput(output);
-                stepExec.setStatus("DONE");
 
-                previousOutput = output; // <---- guardar para el siguiente step
+                String status = getCurrentStepStatus(output);
+                stepExec.setStatus(status);
+                if(status.equalsIgnoreCase(StatusEnum.REJECTED.getDescription())){
+                    break;
+                }
+                previousOutput = output;
 
             } catch (Exception e) {
 
                 stepExec.setOutput("ERROR: " + e.getMessage());
                 stepExec.setStatus("ERROR");
 
-                previousOutput = null; // reset en caso de error (o lo mantenés según tu caso)
+                break;
             }
 
             stepExecutionRepository.save(stepExec);
         }
 
-        execution.setStatus("COMPLETED");
+        execution.setStatus(StatusEnum.DONE.getDescription());
         return executionRepository.save(execution);
     }
 
     private String runStep(Long execution, Step step, String previousOutput) throws JsonProcessingException {
 
-        // si el step necesita el output anterior, podemos reemplazar un token como {{prev}}
         String finalPrompt = step.getPrompt();
 
         if (previousOutput != null && finalPrompt != null) {
             finalPrompt = finalPrompt.replace("{{previous_output}}", previousOutput);
         }
 
-        // CASO 1 → INTERNAL
         if ("internal".equalsIgnoreCase(step.getOperationType())) {
             return internalOperationService.handleInternal(execution, step, previousOutput).toString();
         }
 
-        // CASO 2 → STRATEGIES
         if (step.getAgent() == null) {
             throw new IllegalArgumentException("El step requiere un agent para operación: " + step.getOperationType());
         }
 
-        // reemplazo de prompt temporal
         Step temp = new Step();
         temp.setPrompt(finalPrompt);
         temp.setAgent(step.getAgent());
@@ -103,10 +103,18 @@ public class WorkflowExecutionService {
 
         IAClientStrategy strategy = clientFactory.getStrategy(step.getAgent());
         Object result = strategy.generate(temp);
-        if("GEMINI".equalsIgnoreCase(step.getAgent().getProvider())) {
+        if(ProviderEnum.GEMINI.getName().equalsIgnoreCase(step.getAgent().getProvider())) {
             GeminiResponse response = (GeminiResponse) result;
             result = response.getCandidates().get(0).getContent().getParts().get(0).getText();
         }
         return result != null ? result.toString() : "";
     }
+
+    private String getCurrentStepStatus(String output) {
+        if(output.startsWith(StatusEnum.REJECTED.getDescription())){
+            StatusEnum.REJECTED.getDescription();
+        }
+        return StatusEnum.DONE.getDescription();
+    }
+
 }
